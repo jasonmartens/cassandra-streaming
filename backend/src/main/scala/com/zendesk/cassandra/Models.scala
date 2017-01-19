@@ -6,7 +6,7 @@ import com.outworkers.phantom.connectors.RootConnector
 import com.outworkers.phantom.dsl._
 import com.outworkers.phantom.reactivestreams._
 
-import scala.concurrent.{Future => ScalaFuture}
+import scala.concurrent.{ Future => ScalaFuture }
 
 case class Person(id: Int, name: String)
 
