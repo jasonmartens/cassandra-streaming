@@ -1,4 +1,4 @@
-package com.zendesk.cassandra
+package com.jasonmartens.cassandra
 
 import com.outworkers.phantom.connectors.ContactPoints
 

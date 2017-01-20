@@ -1,10 +1,10 @@
-package com.zendesk.cassandra.tables
+package com.jasonmartens.cassandra.tables
 
 import com.outworkers.phantom.builder.query.CreateQuery
 import com.outworkers.phantom.connectors.CassandraConnection
 import com.outworkers.phantom.database.Database
 import com.outworkers.phantom.dsl.{ KeySpace, comment }
-import com.zendesk.cassandra.{ Connector, People, Person }
+import com.jasonmartens.cassandra.{ Connector, People, Person }
 
 class TestDatabase(override val connector: CassandraConnection) extends Database[TestDatabase](connector) {
 

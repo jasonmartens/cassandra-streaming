@@ -1,4 +1,4 @@
-package com.zendesk.cassandra
+package com.jasonmartens.cassandra
 
 import akka.NotUsed
 import akka.stream.scaladsl.Source
@@ -26,8 +26,6 @@ class PeopleDatabase(override val connector: CassandraConnection)(implicit val c
     Source.fromPublisher(People.publisher())
   }
 }
-
-//object PeopleDatabase extends PeopleDatabase(Connector.connector)
 
 trait PeopleDbProvider extends DatabaseProvider[PeopleDatabase] {
   implicit val ctx: ExecutionContextExecutor

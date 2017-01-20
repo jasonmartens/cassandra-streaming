@@ -1,6 +1,7 @@
-package com.zendesk
+package com.jasonmartens
 
-import com.zendesk.shared.Protocol
+import com.jasonmartens.shared.Protocol
+import com.jasonmartens.shared.Protocol.BackpressureMessage
 import org.scalajs.dom.raw._
 
 import scala.scalajs.js
@@ -8,45 +9,38 @@ import org.scalajs.dom
 import upickle.default._
 
 object Frontend extends js.JSApp {
-  val joinButton = dom.document.getElementById("join").asInstanceOf[HTMLButtonElement]
-  val sendButton = dom.document.getElementById("send").asInstanceOf[HTMLButtonElement]
+  val queryButton = dom.document.getElementById("query").asInstanceOf[HTMLButtonElement]
+  val requestButton = dom.document.getElementById("request").asInstanceOf[HTMLButtonElement]
 
   def main(): Unit = {
-    val nameField = dom.document.getElementById("name").asInstanceOf[HTMLInputElement]
-    joinButton.onclick = { (event: MouseEvent) ⇒
-      joinChat(nameField.value)
+    queryButton.onclick = { (event: MouseEvent) ⇒
+      queryDB()
       event.preventDefault()
-    }
-    nameField.focus()
-    nameField.onkeypress = { (event: KeyboardEvent) ⇒
-      if (event.keyCode == 13) {
-        joinButton.click()
-        event.preventDefault()
-      }
     }
   }
 
-  def joinChat(name: String): Unit = {
-    joinButton.disabled = true
+  def queryDB(): Unit = {
+    queryButton.disabled = true
     val playground = dom.document.getElementById("playground")
-    playground.innerHTML = s"Trying to join chat as '$name'..."
-    val dbStream = new WebSocket(getWebsocketUri(dom.document, name))
-    dbStream.onopen = { (event: Event) ⇒
+    playground.innerHTML = s"Querying Database..."
+    val dbStream = new WebSocket(getWebsocketUri(dom.document))
+    dbStream.onopen = { (event: Event) =>
       playground.insertBefore(p("dbStream connection was successful!"), playground.firstChild)
-      sendButton.disabled = false
+      requestButton.disabled = false
 
-      val messageField = dom.document.getElementById("message").asInstanceOf[HTMLInputElement]
-      messageField.focus()
-      messageField.onkeypress = { (event: KeyboardEvent) ⇒
+      val requestNumber = dom.document.getElementById("requestNumber").asInstanceOf[HTMLInputElement]
+      requestNumber.focus()
+      requestNumber.onkeypress = { (event: KeyboardEvent) ⇒
         if (event.keyCode == 13) {
-          sendButton.click()
+          requestButton.click()
           event.preventDefault()
         }
       }
-      sendButton.onclick = { (event: Event) ⇒
-        dbStream.send(messageField.value)
-        messageField.value = ""
-        messageField.focus()
+      requestButton.onclick = { (event: Event) ⇒
+        val bpMessage = BackpressureMessage(requestNumber.value.toInt)
+        dbStream.send(write(bpMessage))
+        requestNumber.value = ""
+        requestNumber.focus()
         event.preventDefault()
       }
 
@@ -54,8 +48,8 @@ object Frontend extends js.JSApp {
     }
     dbStream.onerror = { (event: ErrorEvent) ⇒
       playground.insertBefore(p(s"Failed: code: ${event.colno}"), playground.firstChild)
-      joinButton.disabled = false
-      sendButton.disabled = true
+      queryButton.disabled = false
+      requestButton.disabled = true
     }
     dbStream.onmessage = { (event: MessageEvent) ⇒
       val wsMsg = read[Protocol.Message](event.data.toString)
@@ -66,15 +60,15 @@ object Frontend extends js.JSApp {
     }
     dbStream.onclose = { (event: Event) ⇒
       playground.insertBefore(p("Connection to chat lost. You can try to rejoin manually."), playground.firstChild)
-      joinButton.disabled = false
-      sendButton.disabled = true
+      queryButton.disabled = false
+      requestButton.disabled = true
     }
 
     def writeToArea(text: String): Unit =
       playground.insertBefore(p(text), playground.firstChild)
   }
 
-  def getWebsocketUri(document: Document, nameOfChatParticipant: String): String = {
+  def getWebsocketUri(document: Document): String = {
     val wsProtocol = if (dom.document.location.protocol == "https:") "wss" else "ws"
     s"$wsProtocol://${dom.document.location.host}/ws"
   }
