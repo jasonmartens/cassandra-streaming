@@ -4,7 +4,8 @@ import com.outworkers.phantom.builder.query.CreateQuery
 import com.outworkers.phantom.connectors.CassandraConnection
 import com.outworkers.phantom.database.Database
 import com.outworkers.phantom.dsl.{ KeySpace, comment }
-import com.jasonmartens.cassandra.{ Connector, People, Person }
+import com.jasonmartens.cassandra.{ Connector, People }
+import com.jasonmartens.shared.Protocol.Person
 
 class TestDatabase(override val connector: CassandraConnection) extends Database[TestDatabase](connector) {
 

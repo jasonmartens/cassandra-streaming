@@ -54,7 +54,7 @@ object Frontend extends js.JSApp {
     dbStream.onmessage = { (event: MessageEvent) ⇒
       val wsMsg = read[Protocol.Message](event.data.toString)
       wsMsg match {
-        case Protocol.PersonMessage(id, name) ⇒ writeToArea(s"$name has id: $id")
+        case p: Protocol.Person ⇒ writeToArea(p.toString)
         case what => writeToArea(s"Got a what!?!?! - $what")
       }
     }

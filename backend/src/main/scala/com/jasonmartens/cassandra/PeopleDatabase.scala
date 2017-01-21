@@ -1,13 +1,16 @@
 package com.jasonmartens.cassandra
 
+import java.util.UUID
+
 import akka.NotUsed
 import akka.stream.scaladsl.Source
+import com.jasonmartens.shared.Protocol.Person
 import com.outworkers.phantom.connectors.CassandraConnection
 import com.outworkers.phantom.database.Database
 import com.outworkers.phantom.dsl.{ DatabaseProvider, ResultSet }
 import com.outworkers.phantom.reactivestreams._
 
-import scala.concurrent.{ ExecutionContext, ExecutionContextExecutor, Future => ScalaFuture }
+import scala.concurrent.{ ExecutionContextExecutor, Future => ScalaFuture }
 
 class PeopleDatabase(override val connector: CassandraConnection)(implicit val ctx: ExecutionContextExecutor) extends Database[PeopleDatabase](connector) {
   object People extends ConcretePeople with connector.Connector
@@ -18,7 +21,7 @@ class PeopleDatabase(override val connector: CassandraConnection)(implicit val c
     } yield insert
   }
 
-  def getPerson(id: Int): ScalaFuture[Option[Person]] = {
+  def getPerson(id: UUID): ScalaFuture[Option[Person]] = {
     People.findPersonById(id)
   }
 

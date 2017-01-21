@@ -8,7 +8,7 @@ import akka.http.scaladsl.server.Route
 import akka.stream.scaladsl._
 import akka.stream.{ FanInShape2, FlowShape, Graph, Materializer }
 import com.jasonmartens.shared.Protocol
-import com.jasonmartens.shared.Protocol.BackpressureMessage
+import com.jasonmartens.shared.Protocol.{ BackpressureMessage, Person }
 import upickle.default._
 
 trait Webserver extends PeopleDbProvider {
@@ -22,7 +22,7 @@ trait Webserver extends PeopleDbProvider {
     val bpElem = b.add(bpGraph)
     val dbSource = b.add(database.peopleStream)
     val personToMessageFlow = b.add(
-      Flow[Person].map(p => TextMessage.Strict(write(Protocol.PersonMessage(p.id, p.name))))
+      Flow[Person].map(p => TextMessage.Strict(write(p)))
     )
     val tmToBPMessage = b.add(
       Flow[Message].map {
