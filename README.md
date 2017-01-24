@@ -16,7 +16,7 @@ To allow the developer control over the number of records returned, a "manual" b
 You have a cassandra database at the IP(s) and port listed in the application.conf
 
 ### Sample Data
-The list of names comes from the [US Census Bureau](http://www2.census.gov/topics/genealogy/2000surnames/)
+The list of names comes from the [US Census Bureau](http://www2.census.gov/topics/genealogy/2000surnames/).
 To insert the sample data, run the InsertSampleData app:
 ```
 sbt
