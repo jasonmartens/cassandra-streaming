@@ -1,6 +1,6 @@
 package com.jasonmartens.cassandra
 
-import com.outworkers.phantom.connectors.{CassandraConnection, ContactPoints}
+import com.outworkers.phantom.connectors.{ CassandraConnection, ContactPoints }
 import com.typesafe.config.ConfigFactory
 
 import collection.JavaConverters._

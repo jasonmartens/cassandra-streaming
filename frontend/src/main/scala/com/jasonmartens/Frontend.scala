@@ -24,7 +24,7 @@ object Frontend extends js.JSApp {
 
   def main(): Unit = {
     val data: Var[Seq[TableRow]] = Var(Seq.empty)
-    val testTable = new TestTable(data)
+    val testTable = new SurnameTable(data)
     queryButton.onclick = { (event: MouseEvent) ⇒
       queryDB(data)
       event.preventDefault()
