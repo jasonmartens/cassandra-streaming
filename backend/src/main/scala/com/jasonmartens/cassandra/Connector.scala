@@ -1,11 +1,13 @@
 package com.jasonmartens.cassandra
 
-import com.outworkers.phantom.connectors.ContactPoints
+import com.outworkers.phantom.connectors.{CassandraConnection, ContactPoints}
+import com.typesafe.config.ConfigFactory
+
+import collection.JavaConverters._
 
 object Connector {
-  // This is a fictional series of IP addresses
-  val hosts = Seq("192.168.42.45")
-  val port = 9042
-  ContactPoints
-  val connector = ContactPoints(hosts, port).noHeartbeat().keySpace("phantom_test")
+  private val config = ConfigFactory.load()
+  val hosts: Seq[String] = config.getStringList("cassandra.hosts").asScala
+  val port: Int = config.getInt("cassandra.port")
+  val connector: CassandraConnection = ContactPoints(hosts, port).noHeartbeat().keySpace("phantom_test")
 }

@@ -56,7 +56,8 @@ lazy val backend = project.in(file("backend"))
       val f2 = (packageScalaJSLauncher in Compile in frontend).value
       Seq(f1.data, f2.data)
     }.taskValue,
-    watchSources ++= (watchSources in frontend).value
+    watchSources ++= (watchSources in frontend).value,
+    mainClass in (Compile,run) := Some("com.jasonmartens.cassandra.Boot")
   )
   .dependsOn(sharedJvm)
 

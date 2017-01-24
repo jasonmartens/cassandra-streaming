@@ -10,8 +10,8 @@ final class TestTable(data: Var[Seq[TableRow]])(implicit ctx: Ctx.Owner) extends
   override def render(md: Modifier*): Modifier = {
     // Table content
     val heading = Var(
-      Seq[Modifier]("id", "name", "rank", "count", "prop100k", "cum_prop100k", "pctwhite", "pctblack",
-        "pctapi", "pctaian", "pct2prace", "pcthispanic")
+      Seq[Modifier]("id", "Last Name", "Rank", "Count", "Prop 100K", "Cum Prop 100k", "Pct White", "Pct Black",
+        "Pct API", "Pct AI & Ala", "Pct 2 Race", "Pct Hisp")
     )
 
     val content = data

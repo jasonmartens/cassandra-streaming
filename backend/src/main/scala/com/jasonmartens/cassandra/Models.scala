@@ -6,13 +6,13 @@ import com.outworkers.phantom.CassandraTable
 import com.outworkers.phantom.connectors.RootConnector
 import com.outworkers.phantom.dsl._
 
-import scala.concurrent.{Future => ScalaFuture}
+import scala.concurrent.{ Future => ScalaFuture }
 
 abstract class People extends CassandraTable[People, Person] {
   object bucket extends StringColumn(this) with PartitionKey
   object id extends UUIDColumn(this)
-  object name extends StringColumn(this) with PrimaryKey with ClusteringOrder with Descending
-  object rank extends IntColumn(this)
+  object name extends StringColumn(this)
+  object rank extends IntColumn(this) with PrimaryKey with ClusteringOrder with Ascending
   object count extends IntColumn(this)
   object prop100k extends FloatColumn(this)
   object cum_prop100k extends FloatColumn(this)
@@ -42,9 +42,9 @@ abstract class ConcretePeople extends People with RootConnector {
       .value(_.pcthispanic, person.pcthispanic)
       .future()
   }
-  
-  def findPersonByName(name: String): ScalaFuture[Option[Person]] = {
-    select.where(_.name eqs name).one()
+
+  def findNameByRank(rank: Int): ScalaFuture[Option[Person]] = {
+    select.where(_.rank eqs rank).one()
   }
 
 }

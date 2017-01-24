@@ -90,7 +90,7 @@ object Frontend extends js.JSApp {
     }
 
     dbStream.onclose = { (event: Event) ⇒
-      playground.insertBefore(p("Connection to chat lost. You can try to rejoin manually."), playground.firstChild)
+      playground.insertBefore(p("All results retrieved, connection closed."), playground.firstChild)
       queryButton.disabled = false
       requestButton.disabled = true
     }
