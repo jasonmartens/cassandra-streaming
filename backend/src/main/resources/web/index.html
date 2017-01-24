@@ -1,19 +1,33 @@
-<html>
-<body>
-<div>Streaming DB Query Demo</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Streaming DB Query Demo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+<body style="padding-top: 50px">
 
-<form action="#">
-  <input id="query" type="button" value="Query"/>
-</form>
+  <div class="container-fluid" style="padding-top: 15px; padding-bottom: 15px">
+    <div class="row">
+      <form action="#" class="form-inline">
+        <div class="form-group">
+          <label for="query">Initiate Query: </label>
+          <input id="query" type="button" value="Query"/>
+        </div>
+      </form>
 
-<form action="#">
-  <label for="requestNumber">How many records to fetch: </label><input id="requestNumber" type="text" />
-  <input id="request" type="button" value="Fetch" disabled="true"/>
-</form>
+      <form action="#" class="form-inline">
+        <div class="form-group">
+          <label for="requestNumber">How many records to fetch: </label><input id="requestNumber" type="text"/>
+          <input id="request" type="button" value="Fetch" disabled="true"/>
+        </div>
+      </form>
+      <div id="playground"/>
+    </div>
+  </div>
 
-<div id="playground"/>
-
-<script type="text/javascript" src="frontend-fastopt.js"></script>
-<script type="text/javascript" src="frontend-launcher.js"></script>
+  <script type="text/javascript" src="frontend-fastopt.js"></script>
+  <script type="text/javascript" src="frontend-launcher.js"></script>
 </body>
 </html>

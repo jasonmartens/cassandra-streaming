@@ -22,10 +22,10 @@ resolvers ++= Seq(
 )
 
 lazy val root =
-  Project("root", file("."))
+  project.in(file("."))
     .aggregate(frontend, backend)
 
-lazy val backend = Project("backend", file("backend"))
+lazy val backend = project.in(file("backend"))
   .settings(commonSettings: _*)
   .settings(
     libraryDependencies ++= Seq(
@@ -62,7 +62,7 @@ lazy val backend = Project("backend", file("backend"))
 
 // Scala-Js frontend
 lazy val frontend =
-  Project("frontend", file("frontend"))
+  project.in(file("frontend"))
     .enablePlugins(ScalaJSPlugin)
     .settings(commonSettings: _*)
     .settings(
@@ -71,6 +71,7 @@ lazy val frontend =
       testFrameworks += new TestFramework("utest.runner.Framework"),
       libraryDependencies ++= Seq(
         "org.scala-js" %%% "scalajs-dom" % "0.9.1",
+        "com.github.karasiq" %%% "scalajs-bootstrap" % "1.1.2",
         "com.lihaoyi" %%% "upickle" % upickleV,
         "com.lihaoyi" %%% "utest" % "0.4.4" % "test"
       )

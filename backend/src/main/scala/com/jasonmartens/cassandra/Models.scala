@@ -1,18 +1,17 @@
 package com.jasonmartens.cassandra
 
-import java.util.UUID
-
 import com.datastax.driver.core.ResultSet
 import com.jasonmartens.shared.Protocol.Person
 import com.outworkers.phantom.CassandraTable
 import com.outworkers.phantom.connectors.RootConnector
 import com.outworkers.phantom.dsl._
 
-import scala.concurrent.{ Future => ScalaFuture }
+import scala.concurrent.{Future => ScalaFuture}
 
 abstract class People extends CassandraTable[People, Person] {
-  object id extends UUIDColumn(this) with PartitionKey {}
-  object name extends StringColumn(this) with ClusteringOrder with Ascending
+  object bucket extends StringColumn(this) with PartitionKey
+  object id extends UUIDColumn(this)
+  object name extends StringColumn(this) with PrimaryKey with ClusteringOrder with Descending
   object rank extends IntColumn(this)
   object count extends IntColumn(this)
   object prop100k extends FloatColumn(this)
@@ -28,6 +27,7 @@ abstract class People extends CassandraTable[People, Person] {
 abstract class ConcretePeople extends People with RootConnector {
   def insertNewRecord(person: Person): ScalaFuture[ResultSet] = {
     insert
+      .value(_.bucket, "a")
       .value(_.id, person.id)
       .value(_.name, person.name)
       .value(_.rank, person.rank)
@@ -42,9 +42,9 @@ abstract class ConcretePeople extends People with RootConnector {
       .value(_.pcthispanic, person.pcthispanic)
       .future()
   }
-
-  def findPersonById(id: UUID): ScalaFuture[Option[Person]] = {
-    select.where(_.id eqs id).one()
+  
+  def findPersonByName(name: String): ScalaFuture[Option[Person]] = {
+    select.where(_.name eqs name).one()
   }
 
 }
