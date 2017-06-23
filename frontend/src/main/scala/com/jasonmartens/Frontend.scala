@@ -46,7 +46,9 @@ object Frontend extends js.JSApp {
   }
 
   def queryDB(data: Var[Seq[TableRow]]): Unit = {
-    queryButton.disabled = true
+    // Clear existing table
+    data() = Seq()
+    queryButton.value = "Restart Query"
     println(s"Querying Database...")
     val dbStream = new WebSocket(getWebsocketUri(dom.document))
     dbStream.onopen = { (event: Event) =>
