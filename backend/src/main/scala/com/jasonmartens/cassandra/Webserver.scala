@@ -48,7 +48,8 @@ trait Webserver extends PeopleDbProvider {
       // Scala-JS puts them in the root of the resource directory per default,
       // so that's where we pick them up
       path("frontend-launcher.js")(getFromResource("frontend-launcher.js")) ~
-      path("frontend-fastopt.js")(getFromResource("frontend-fastopt.js"))
+      path("frontend-fastopt.js")(getFromResource("frontend-fastopt.js")) ~
+      path("frontend-fastopt.js.map")(getFromResource("frontend-fastopt.js.map"))
   } ~
     getFromResourceDirectory("web") ~
     path("ws") {

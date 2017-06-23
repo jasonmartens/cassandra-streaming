@@ -52,9 +52,11 @@ lazy val backend = project.in(file("backend"))
 
     ),
     resourceGenerators in Compile += Def.task {
-      val f1 = (fastOptJS in Compile in frontend).value
-      val f2 = (packageScalaJSLauncher in Compile in frontend).value
-      Seq(f1.data, f2.data)
+      val f1 = (fastOptJS in Compile in frontend).value.data
+      val f1SourceMap = f1.getParentFile / (f1.getName + ".map")
+      val f2 = (packageScalaJSLauncher in Compile in frontend).value.data
+      val f3 = (packageJSDependencies in Compile in frontend).value
+      Seq(f1, f1SourceMap, f2, f3)
     }.taskValue,
     watchSources ++= (watchSources in frontend).value,
     mainClass in (Compile,run) := Some("com.jasonmartens.cassandra.Boot")
