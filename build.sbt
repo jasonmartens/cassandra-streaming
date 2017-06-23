@@ -7,7 +7,7 @@ lazy val akkaV = "2.4.16"
 lazy val akkaHttpV = "10.0.1"
 lazy val upickleV = "0.4.4"
 lazy val scalaTestV = "3.0.0"
-lazy val phantomV = "2.0.0"
+lazy val phantomV = "2.9.2"
 
 def commonSettings = Seq(
   scalaVersion :=  scalaV

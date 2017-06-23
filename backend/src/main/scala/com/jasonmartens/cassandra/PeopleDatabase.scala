@@ -6,7 +6,7 @@ import com.jasonmartens.shared.Protocol.Person
 import com.outworkers.phantom.connectors.CassandraConnection
 import com.outworkers.phantom.database.Database
 import com.outworkers.phantom.dsl.{ DatabaseProvider, ResultSet }
-import com.outworkers.phantom.reactivestreams._
+import com.outworkers.phantom.streams._
 
 import scala.concurrent.{ ExecutionContextExecutor, Future => ScalaFuture }
 
