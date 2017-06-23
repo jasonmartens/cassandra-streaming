@@ -9,22 +9,20 @@
 <body style="padding-top: 50px">
 
   <div class="container-fluid" style="padding-top: 15px; padding-bottom: 15px">
-    <div class="row">
-      <form action="#" class="form-inline">
-        <div class="form-group">
-          <label for="query">Initiate Query: </label>
-          <input id="query" type="button" value="Query"/>
-        </div>
-      </form>
+    <form action="#" class="form-inline">
+      <div class="form-group">
+        <input id="query" type="button" value="Initiate Query"/>
+      </div>
+    </form>
 
-      <form action="#" class="form-inline">
-        <div class="form-group">
-          <label for="requestNumber">How many records to fetch: </label><input id="requestNumber" type="text"/>
-          <input id="request" type="button" value="Fetch" disabled="true"/>
-        </div>
-      </form>
-      <div id="playground"/>
-    </div>
+    <form action="#" class="form-inline">
+      <div class="form-group">
+        <label for="requestNumber">How many records to fetch: </label>
+        <input id="requestNumber" type="text" value="3"/>
+        <input id="request" type="button" value="Fetch" disabled="true"/>
+      </div>
+    </form>
+    <div id="playground"/>
   </div>
 
   <script type="text/javascript" src="frontend-fastopt.js"></script>
