@@ -9,7 +9,7 @@ import com.karasiq.bootstrap.navbar.{ NavigationBar, NavigationBarStyle, Navigat
 import com.karasiq.bootstrap.table.TableRow
 import org.scalajs.dom
 import org.scalajs.dom.raw._
-import rx.{ Ctx, Rx, Var }
+import rx.{ Ctx, Var }
 import upickle.default._
 
 import scala.language.postfixOps
@@ -19,8 +19,8 @@ import scalatags.JsDom.all._
 object Frontend extends js.JSApp {
   private implicit val context = implicitly[Ctx.Owner] // Stops working if moved to main(), macro magic
 
-  val queryButton = dom.document.getElementById("query").asInstanceOf[HTMLButtonElement]
-  val requestButton = dom.document.getElementById("request").asInstanceOf[HTMLButtonElement]
+  val queryButton: HTMLButtonElement = dom.document.getElementById("query").asInstanceOf[HTMLButtonElement]
+  val requestButton: HTMLButtonElement = dom.document.getElementById("request").asInstanceOf[HTMLButtonElement]
 
   def main(): Unit = {
     val data: Var[Seq[TableRow]] = Var(Seq.empty)
@@ -43,16 +43,14 @@ object Frontend extends js.JSApp {
 
     // Render page
     navigationBar.applyTo(dom.document.body)
-    navigationBar.selectTab(1)
   }
 
   def queryDB(data: Var[Seq[TableRow]]): Unit = {
     queryButton.disabled = true
-    val playground = dom.document.getElementById("playground")
-    playground.innerHTML = s"Querying Database..."
+    println(s"Querying Database...")
     val dbStream = new WebSocket(getWebsocketUri(dom.document))
     dbStream.onopen = { (event: Event) =>
-      playground.insertBefore(p("dbStream connection was successful!"), playground.firstChild)
+      println("dbStream connection was successful!")
       requestButton.disabled = false
 
       val requestNumber = dom.document.getElementById("requestNumber").asInstanceOf[HTMLInputElement]
@@ -73,7 +71,7 @@ object Frontend extends js.JSApp {
       event
     }
     dbStream.onerror = { (event: ErrorEvent) ⇒
-      playground.insertBefore(p(s"Failed: code: ${event.colno}"), playground.firstChild)
+      println(s"Failed: code: ${event.colno}")
       queryButton.disabled = false
       requestButton.disabled = true
     }
@@ -90,13 +88,13 @@ object Frontend extends js.JSApp {
     }
 
     dbStream.onclose = { (event: Event) ⇒
-      playground.insertBefore(p("All results retrieved, connection closed."), playground.firstChild)
+      println("All results retrieved, connection closed.")
       queryButton.disabled = false
       requestButton.disabled = true
     }
 
     def writeToArea(text: String): Unit =
-      playground.insertBefore(p(text), playground.firstChild)
+      println(text)
   }
 
   def getWebsocketUri(document: Document): String = {
