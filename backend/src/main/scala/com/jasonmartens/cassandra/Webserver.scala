@@ -14,7 +14,7 @@ import upickle.default._
 trait Webserver extends PeopleDbProvider {
   implicit val materializer: Materializer
 
-  val bpGraph = GraphDSL.create() { implicit b =>
+  def bpGraph = GraphDSL.create() { implicit b =>
     import GraphDSL.Implicits._
 
     val bpGraph: Graph[FanInShape2[Person, BackpressureMessage, Person], NotUsed] =
