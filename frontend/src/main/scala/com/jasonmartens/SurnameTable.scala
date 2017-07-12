@@ -1,7 +1,6 @@
 package com.jasonmartens
 
-import com.karasiq.bootstrap.BootstrapComponent
-import com.karasiq.bootstrap.table.{ PagedTable, TableRow, TableStyle }
+import com.karasiq.bootstrap.Bootstrap.default._
 import rx._
 
 import scalatags.JsDom.all._

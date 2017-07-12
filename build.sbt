@@ -2,9 +2,9 @@ name := "phantom-cassandra"
 
 version := "1.0"
 
-lazy val scalaV = "2.11.8"
-lazy val akkaV = "2.4.16"
-lazy val akkaHttpV = "10.0.1"
+lazy val scalaV = "2.12.2"
+lazy val akkaV = "2.5.3"
+lazy val akkaHttpV = "10.0.9"
 lazy val upickleV = "0.4.4"
 lazy val scalaTestV = "3.0.0"
 lazy val phantomV = "2.9.2"
@@ -73,8 +73,8 @@ lazy val frontend =
       persistLauncher in Test := false,
       testFrameworks += new TestFramework("utest.runner.Framework"),
       libraryDependencies ++= Seq(
-        "org.scala-js" %%% "scalajs-dom" % "0.9.1",
-        "com.github.karasiq" %%% "scalajs-bootstrap" % "1.1.2",
+        "org.scala-js" %%% "scalajs-dom" % "0.9.3",
+        "com.github.karasiq" %%% "scalajs-bootstrap" % "2.0.0",
         "com.lihaoyi" %%% "upickle" % upickleV,
         "com.lihaoyi" %%% "utest" % "0.4.4" % "test"
       )

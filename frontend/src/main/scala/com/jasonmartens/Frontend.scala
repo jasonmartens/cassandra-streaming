@@ -2,14 +2,10 @@ package com.jasonmartens
 
 import com.jasonmartens.shared.Protocol
 import com.jasonmartens.shared.Protocol.BackpressureMessage
-import com.karasiq.bootstrap.BootstrapImplicits._
-import com.karasiq.bootstrap.grid.GridSystem
-import com.karasiq.bootstrap.icons.FontAwesome
-import com.karasiq.bootstrap.navbar.{ NavigationBar, NavigationBarStyle, NavigationTab }
-import com.karasiq.bootstrap.table.TableRow
+import com.karasiq.bootstrap.Bootstrap.default._
 import org.scalajs.dom
 import org.scalajs.dom.raw._
-import rx.{ Ctx, Var }
+import rx._
 import upickle.default._
 
 import scala.language.postfixOps
@@ -17,7 +13,6 @@ import scala.scalajs.js
 import scalatags.JsDom.all._
 
 object Frontend extends js.JSApp {
-  private implicit val context = implicitly[Ctx.Owner] // Stops working if moved to main(), macro magic
 
   val queryButton: HTMLButtonElement = dom.document.getElementById("query").asInstanceOf[HTMLButtonElement]
   val requestButton: HTMLButtonElement = dom.document.getElementById("request").asInstanceOf[HTMLButtonElement]
