@@ -44,7 +44,6 @@ class ManualBackpressure[T, U <: BackpressureMessage](initialDemand: Long) exten
       // Block the stream when downstream demand is satisfied
       setHandler(dataIn, new InHandler {
         override def onPush(): Unit = {
-          println("dataIn - onPush")
           pushData()
         }
 
